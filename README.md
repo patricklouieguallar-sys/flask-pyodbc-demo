@@ -29,6 +29,7 @@ logging.basicConfig(
 
 app = Flask(__name__)
 
+# This function connects Python to MSSQL
 def get_db_connection():
     try:
         logging.info("Connecting to database")
@@ -45,7 +46,7 @@ def get_db_connection():
         logging.error(f"Connection failed {e}")
         raise
 
-
+# Client sends JSON here to insert data into database
 @app.route("/add_user", methods=["POST"]) #POST Client is send the data
 def add_user():
     try:
@@ -78,7 +79,7 @@ def add_user():
         logging.error(f"Inserting failed: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
-
+# Client requests data from database
 @app.route("/users",methods=["GET"]) #GET client wants data
 def get_users():
     try:
@@ -104,9 +105,7 @@ def get_users():
     except Exception as e:
         logging.error(f"Fetching failed: {e}")
         return jsonify({"error": "Internal server error"}), 500
-    
+
+# This runs the HTTP server
 if __name__ == "__main__":
     app.run(debug=True)
-
-can I input this on gitHub?
-what should I indicate or caption on it providing isngihts and details
